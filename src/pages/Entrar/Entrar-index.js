@@ -45,7 +45,7 @@ export default function Entrar() {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#6a1b9a",
+        backgroundColor: "#613CF0",
     },
     containerHeader: {
         marginTop: '14%',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
     },
     button: {
-        backgroundColor: "#6a1b9a",
+        backgroundColor: "#613CF0",
         width: '100%',
         borderRadius: 4,
         paddingVertical: 8,

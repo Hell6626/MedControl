@@ -44,7 +44,7 @@ export default function Cadastro() {
 const styles = StyleSheet.create({
     container:{
         flex: 1,
-        backgroundColor: "#6a1b9a",
+        backgroundColor: "#613CF0",
     },
     containerHeader: {
         flex: 2,
@@ -84,11 +84,10 @@ const styles = StyleSheet.create({
     buttontext:{
         fontSize: 20,
         color: "#fff",
-        backgroundColor: "#6a1b9a",
+        backgroundColor: "#613CF0",
         paddingVertical: 15,
         paddingHorizontal: 25,
         marginRight: '5%',
         borderRadius: 10,
-        
     },
 })
