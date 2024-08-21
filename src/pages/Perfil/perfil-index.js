@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
   buttonadd:{
     fontSize:15,
     fontWeight: 'bold',
-    marginBottom:0,
+    marginBottom:40,
+    paddingTop:20,
     margin:"auto",
     textAlign:"center",
     
