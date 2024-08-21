@@ -32,14 +32,6 @@ export default function Perfil() {
             <ScrollView>
             <UserProfile />
             <UserProfile />
-            <UserProfile />
-            <UserProfile />
-            <UserProfile />
-            <UserProfile />
-            <UserProfile />
-            <UserProfile />
-            <UserProfile />
-            <UserProfile />
             </ScrollView>
             
             
@@ -76,10 +68,10 @@ const styles = StyleSheet.create({
   },
   containerHeader:{
     flexDirection: "row",
-    paddingTop:10,
+    paddingTop:50,
     paddingBottom:10,
     paddingStart: 5,
-    paddingEnd:25
+    paddingEnd:25,
   },
   profileHeader:{
     flexDirection:"row",
@@ -127,6 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft:15,
     marginBottom:10,
+    
   },
   imageuser:{
     borderColor: '#000',
@@ -152,7 +145,8 @@ const styles = StyleSheet.create({
     marginBottom:40,
     paddingTop:20,
     margin:"auto",
-    textAlign:"center",
+    alignItems: "center",
+    justifyContent: "center"
     
   },
 

@@ -1,21 +1,48 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Entypo';
+import { FaBars } from 'react-icons/fa'; // Importando o ícone de menu
+
+
+
 export default function Home() {
     const navigation = useNavigation();
     const icon2 = <Icon2 name="magnifying-glass" size={35} color="#fff" />
+    const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+    const toggleSidebar = () => {
+        setIsSidebarVisible(!isSidebarVisible);
+    };
+
+
 
     return (
       <View style={styles.container}>
+        {/* Botão de Menu */}
+        <TouchableOpacity style={styles.menuButton} onPress={toggleSidebar}>
+              <FaBars size={30} color="#fff" /> {/* Usando o ícone */}
+        </TouchableOpacity>
+          {/* Sidebar */}
+          {isSidebarVisible && (
+              <Animatable.View animation="fadeInLeft" style={styles.sidebar}>
+                  <TouchableOpacity style={styles.sidebarButton}>
+                      <Text style={styles.sidebarButtonText}>Item 1</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.sidebarButton}>
+                      <Text style={styles.sidebarButtonText}>Item 2</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.sidebarButton}>
+                      <Text style={styles.sidebarButtonText}>Item 3</Text>
+                  </TouchableOpacity>
+              </Animatable.View>
+          )}
+
         <Animatable.View animation="fadeInDown" delay={400} style={styles.containerHeader}>
             <View style={styles.profileHeader}>
-                <TouchableOpacity onPress={() => navigation.navigate('Entrar')} style={styles.buttonvolt}>
-                    <Icon name="menufold" size={40} color="#fff" />
-                </TouchableOpacity>           
+                       
                 <View style={styles.profile}>
                     <Text style={styles.name}>Nome-conta</Text>
                     <View style={styles.image}></View>
@@ -126,4 +153,31 @@ const styles = StyleSheet.create({
     marginLeft:15,
     marginTop:15,
   },
+  menuButton: {
+    position: 'absolute',
+    top: 20,
+    left: 10,
+    zIndex: 10,
+    padding: 10,
+  },
+  sidebar: {
+    paddingTop: 100,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 200, // Largura da sidebar
+    backgroundColor: '#4a2dbd',
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+    zIndex: 9,
+  },
+  sidebarButton: {
+    marginBottom: 20,
+  },
+  sidebarButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+
 })

@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 export default function Routes() {
     return (
-        <Stack.Navigator initialRouteName="Perfil">
+        <Stack.Navigator initialRouteName="Home">
             <Stack.Screen
                 name="MedControl"
                 component={MedControl}

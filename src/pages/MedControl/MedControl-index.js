@@ -36,13 +36,13 @@ export default function MedControl() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#613CF0', // Fundo roxo escuro sólido
+        backgroundColor: '#613CF0', 
     },
     containerLogo: {
         flex: 2,
-        backgroundColor: '#613CF0', // Mesma cor de fundo para evitar bordas
+        backgroundColor: '#613CF0',
         justifyContent: "center",
-        alignItems: "center", // Centraliza o texto no meio
+        alignItems: "center",
     },
     containerForm: {
         flex: 1,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 25,
         paddingStart: '5%',
         paddingEnd: '5%',
-        paddingTop: '10%', // Espaçamento para que o conteúdo não encoste nas bordas
+        paddingTop: '10%',
     },
     titulo: {
         fontSize: 50,
