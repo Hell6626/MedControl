@@ -41,7 +41,7 @@ export default function UsuarioSecundario() {
                 
                 <TouchableOpacity style={styles.button} >
                     <Text style={styles.buttontext} onPress={() => navigation.navigate('Cadastro')}>Anterior</Text>
-                    <Text style={styles.buttontext} onPress={() => navigation.navigate('Home')}>Próximo</Text>
+                    <Text style={styles.buttontext} onPress={() => navigation.navigate('Perfil')}>Próximo</Text>
                 </TouchableOpacity>
                 
             </Animatable.View>

@@ -1,11 +1,11 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 
-export default function Home() {
+export default function Perfil() {
     const navigation = useNavigation();
     const voltarPng = require("../../assets/voltar.png");
     const addPng = require("../../assets/Adicionar.png");
@@ -29,8 +29,19 @@ export default function Home() {
             <Text style={styles.title}>Responsável</Text>
             <UserProfile />
             <Text style={styles.title}>Usuários</Text>
+            <ScrollView>
             <UserProfile />
             <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            <UserProfile />
+            </ScrollView>
+            
             
             <TouchableOpacity style={styles.buttonadd} onPress={() => navigation.navigate('UsuarioSecundario')}>
                 <Image source={addPng} style={styles.addimg} />
@@ -131,16 +142,19 @@ const styles = StyleSheet.create({
   },
   line:{
     marginTop:10,
-    height:2,
+    height:2, 
     width:`100%`,
     backgroundColor:"black",
   },
   buttonadd:{
-    margin:'auto',
     fontSize:15,
     fontWeight: 'bold',
     marginBottom:70,
+    margin:"auto",
+    textAlign:"center",
+    
   },
+
   buttonvolt:{
     color: "white",
     margin:"auto",

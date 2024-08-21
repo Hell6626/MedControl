@@ -27,7 +27,7 @@ export default function Entrar() {
                 style={styles.input}/>
 
 
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perfil')}>
                     <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity> 
 
