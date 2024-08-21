@@ -1,81 +1,58 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput,
-TouchableOpacity,Image } from "react-native";
-import { Picker } from '@react-native-picker/picker';
-import * as Animatable from "react-native-animatable";
+
+import React from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/Feather';
 
-
-export default function Home(){
+export default function Home() {
     const navigation = useNavigation();
-    const voltarpng = require("../../assets/voltar.png");
-    const add = require("../../assets/Adicionar.png");
+    const voltarPng = require("../../assets/voltar.png");
+    const addPng = require("../../assets/Adicionar.png");
+
     return (
       <View style={styles.container}>
-
-            <Animatable.View animation="fadeInDown" delay={100} style={styles.containerHeader}>
-                <Text style={styles.buttonvolt} onPress={() => navigation.navigate('Entrar')}>                
-                  <Image source={voltarpng} style={styles.buttonvolt}></Image>
-                </Text>
-                <View style={styles.profileHeader}>
-                  <Text style={styles.message}>Perfis</Text>
-                  <View style={styles.profile}>
+        <Animatable.View animation="fadeInDown" delay={400} style={styles.containerHeader}>
+            <TouchableOpacity onPress={() => navigation.navigate('Entrar')} style={styles.buttonvolt}>
+                <Icon name="chevron-left" size={30} color="#fff" />
+            </TouchableOpacity>
+            <View style={styles.profileHeader}>
+                <Text style={styles.message}>Perfis</Text>
+                <View style={styles.profile}>
                     <Text style={styles.name}>Nome-conta</Text>
                     <View style={styles.image}></View>
-                  </View>
                 </View>
-            </Animatable.View>
+            </View>
+        </Animatable.View>
 
-            <Animatable.View animation= "fadeInUp" delay={100} style={styles.containerForm}>
-                <Text style={styles.title}>Responsável</Text>
-
-                <View style={styles.user}>
-                  <View style={styles.imageuser}></View>
-                  <View style={styles.userbox}>
-                    <Text style={styles.name2}>(Nome do perfil)</Text>
-                    <View>
-                      <Text>Idade:</Text>
-                      <Text>Sexo:</Text>
-                    </View>
-                    <View style={styles.line}></View>
-                  </View>
-                </View>
-                
-                <Text style={styles.title}>Usuarios</Text>
-
-                <View style={styles.user}>
-                  <View style={styles.imageuser}></View>
-                  <View style={styles.userbox}>
-                    <Text style={styles.name2}>(Nome do perfil)</Text>
-                    <View>
-                      <Text>Idade:</Text>
-                      <Text>Sexo:</Text>
-                    </View>
-                    <View style={styles.line}></View>
-                  </View>
-
-                </View><View style={styles.user}>
-                  <View style={styles.imageuser}></View>
-                  <View style={styles.userbox}>
-                    <Text style={styles.name2}>(Nome do perfil)</Text>
-                    <View>
-                      <Text>Idade:</Text>
-                      <Text>Sexo:</Text>
-                    </View>
-                    <View style={styles.line}></View>
-                  </View>
-                </View>
-                
-                <Text style={styles.buttonadd} onPress={() => navigation.navigate('UsuarioSecundario')}>
-                  <View>
-                    <Image source={add} style={styles.addimg} />
-                    <Text>Adicionar Novo Usuario</Text>
-                  </View>
-                </Text>
-            </Animatable.View>
-        </View>
+        <Animatable.View animation="fadeInUp" delay={600} style={styles.containerForm}>
+            <Text style={styles.title}>Responsável</Text>
+            <UserProfile />
+            <Text style={styles.title}>Usuários</Text>
+            <UserProfile />
+            <UserProfile />
+            
+            <TouchableOpacity style={styles.buttonadd} onPress={() => navigation.navigate('UsuarioSecundario')}>
+                <Image source={addPng} style={styles.addimg} />
+                <Text>Adicionar Novo Usuario</Text>
+            </TouchableOpacity>
+        </Animatable.View>
+      </View>
     );
 }
+
+const UserProfile = () => (
+  <View style={styles.user}>
+    <View style={styles.imageuser}></View>
+    <View style={styles.userbox}>
+      <Text style={styles.name2}>(Nome do perfil)</Text>
+      <Text>Idade:</Text>
+      <Text>Sexo:</Text>
+      <View style={styles.line}></View>
+    </View>
+  </View>
+);
+
 const styles = StyleSheet.create({
   container:{
     flex: 1,
