@@ -20,13 +20,6 @@ export default function Home() {
     const [data, setData] = useState([
         { id: '1', name: 'User' },
     ]);
-    const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    const content = document.querySelector(".content");
-    const inputSearch = document.querySelector("input[type= 'search']");
-    
-
 
 
     return (
@@ -158,7 +151,6 @@ const styles = StyleSheet.create({
     marginHorizontal: '10%'
   },
   medbox:{ 
-    flex:1,
   },
   time:{
     fontWeight:"bold",
@@ -207,10 +199,10 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     paddingHorizontal: 10,
     backgroundColor: "#fff",
-    marginLeft: "29%",
     paddingVertical:10,
-    marginTop: '8.5%',
-    width:'45%',
+    marginTop: 130,
+    width:600,
+    left: '32%',
   },
 
 })
