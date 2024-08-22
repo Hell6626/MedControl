@@ -1,13 +1,11 @@
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput,FlatList, TouchableOpacity } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/Entypo';
 import { FaBars } from 'react-icons/fa'; // Importando o ícone de menu
-
-
 
 export default function Home() {
     const navigation = useNavigation();
@@ -16,6 +14,18 @@ export default function Home() {
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
+    
+
+    const [searchQuery, setSearchQuery] = useState('');
+    const [data, setData] = useState([
+        { id: '1', name: 'User' },
+    ]);
+    const filteredData = data.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    const content = document.querySelector(".content");
+    const inputSearch = document.querySelector("input[type= 'search']");
+    
 
 
 
@@ -52,7 +62,13 @@ export default function Home() {
         </Animatable.View>
 
         <View>
-          <TextInput placeholder={icon2}/>
+            <TextInput
+            style={styles.searchBar}
+            placeholder="Pesquisar..."
+            value={searchQuery}
+            onChangeText={text => setSearchQuery(text)}
+            />
+
         </View>
         
         <Animatable.View animation="fadeInUp" delay={600} style={styles.containerForm}>
