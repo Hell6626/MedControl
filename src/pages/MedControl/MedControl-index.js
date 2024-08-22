@@ -21,9 +21,9 @@ export default function MedControl() {
             <Animatable.View delay={1000} animation="fadeInUp" style={styles.containerForm}>
                 <Text style={styles.title}>Monitore e organize seus remédios de qualquer lugar.</Text>
                 <Text style={styles.texto}>Faça o Login para começar!</Text>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.button}
-                    onPress={()=>navigation.navigate('Entrar')}
+                    onPress={() => navigation.navigate('Entrar')}
                 >
                     <Text style={styles.buttonText}>Acessar</Text>
                 </TouchableOpacity>
@@ -36,7 +36,7 @@ export default function MedControl() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#613CF0', 
+        backgroundColor: '#613CF0',
     },
     containerLogo: {
         flex: 2,

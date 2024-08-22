@@ -11,38 +11,38 @@ export default function Cadastro() {
                 <Text style={styles.message}>Cadastre-se</Text>
             </Animatable.View>
 
-            <Animatable.View animation= "fadeInUp" style={styles.containerForm}>
+            <Animatable.View animation="fadeInUp" style={styles.containerForm}>
 
                 <Text style={styles.title}>E-mail:</Text>
                 <TextInput
-                placeholder="Digite um E-mail..."
-                style={styles.input}/>
+                    placeholder="Digite um E-mail..."
+                    style={styles.input} />
 
                 <Text style={styles.title}>Senha:</Text>
                 <TextInput
-                placeholder="Sua Senha"
-                style={styles.input}/>
+                    placeholder="Sua Senha"
+                    style={styles.input} />
 
                 <Text style={styles.title}>Confirme sua senha:</Text>
                 <TextInput
-                placeholder="Confirmação"
-                style={styles.input}/>
-                
+                    placeholder="Confirmação"
+                    style={styles.input} />
+
                 <TouchableOpacity style={styles.button} >
                     <Text style={styles.buttontext} onPress={() => navigation.navigate('Entrar')}>Anterior</Text>
                     <Text style={styles.buttontext} onPress={() => navigation.navigate('UsuarioSecundario')}>Próximo</Text>
                 </TouchableOpacity>
-                
+
 
 
             </Animatable.View>
         </View>
 
     );
-    
+
 }
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: "#613CF0",
     },
@@ -77,11 +77,11 @@ const styles = StyleSheet.create({
         marginRight: '5%',
     },
     button: {
-        marginTop:50,
+        marginTop: 50,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    buttontext:{
+    buttontext: {
         fontSize: 20,
         color: "#fff",
         backgroundColor: "#613CF0",

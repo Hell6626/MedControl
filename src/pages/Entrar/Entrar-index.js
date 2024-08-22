@@ -1,41 +1,41 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
-import { useNavigation } from '@react-navigation/native' 
+import { useNavigation } from '@react-navigation/native'
 
 export default function Entrar() {
     const navigation = useNavigation();
     return (
-        
+
         <View style={styles.container}>
             <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
                 <Text style={styles.message}>Bem-vindo(a)</Text>
             </Animatable.View>
 
-            <Animatable.View animation= "fadeInUp" style={styles.containerForm}>
+            <Animatable.View animation="fadeInUp" style={styles.containerForm}>
 
 
                 <Text style={styles.title}>E-mail:</Text>
                 <TextInput
-                placeholder="Digite um E-mail..."
-                style={styles.input}/>
+                    placeholder="Digite um E-mail..."
+                    style={styles.input} />
 
 
                 <Text style={styles.title}>Senha:</Text>
                 <TextInput
-                placeholder="Sua Senha"
-                style={styles.input}/>
+                    placeholder="Sua Senha"
+                    style={styles.input} />
 
 
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perfil')}>
                     <Text style={styles.buttonText}>Acessar</Text>
-                </TouchableOpacity> 
+                </TouchableOpacity>
 
 
                 <TouchableOpacity style={styles.registerbutton} onPress={() => navigation.navigate('Cadastro')}>
                     <Text style={styles.registerText}>Não possui uma conta? Cadastre-se</Text>
-                </TouchableOpacity>    
-                
+                </TouchableOpacity>
+
 
             </Animatable.View>
         </View>
@@ -43,7 +43,7 @@ export default function Entrar() {
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: "#613CF0",
     },
@@ -86,17 +86,17 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-    buttonText:{
+    buttonText: {
         color: "#fff",
         fontSize: 20,
         fontWeight: "bold",
 
     },
-    registerbutton:{
+    registerbutton: {
         marginTop: 12,
         alignSelf: "center",
     },
-    registerText:{
+    registerText: {
         color: "grey",
     }
 })

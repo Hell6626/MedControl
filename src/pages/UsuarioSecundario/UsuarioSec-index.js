@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput,
-TouchableOpacity } from "react-native";
+import {
+    View, Text, StyleSheet, TextInput,
+    TouchableOpacity
+} from "react-native";
 import { Picker } from '@react-native-picker/picker';
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from '@react-navigation/native';
@@ -38,20 +40,20 @@ export default function UsuarioSecundario() {
                     <Picker.Item label="Feminino" value="fem" />
                     <Picker.Item label="Masculino" value="masc" />
                 </Picker>
-                
+
                 <TouchableOpacity style={styles.button} >
                     <Text style={styles.buttontext} onPress={() => navigation.navigate('Cadastro')}>Anterior</Text>
                     <Text style={styles.buttontext} onPress={() => navigation.navigate('Perfil')}>Próximo</Text>
                 </TouchableOpacity>
-                
+
             </Animatable.View>
-            
+
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         backgroundColor: "#613CF0",
     },
@@ -82,16 +84,16 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     picker: {
-      marginTop: 5,
-      fontSize: 18,
-      marginRight: "5%",
+        marginTop: 5,
+        fontSize: 18,
+        marginRight: "5%",
     },
     button: {
-        marginTop:50,
+        marginTop: 50,
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    buttontext:{
+    buttontext: {
         fontSize: 20,
         color: "#fff",
         backgroundColor: "#613CF0",
