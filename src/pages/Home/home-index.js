@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     backgroundColor: "#fff",
     paddingVertical:10,
-    marginTop: 130,
+    marginTop: '8.5%',
     width:600,
     left: '32%',
   },
