@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput,FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput,FlatList, TouchableOpacity, Image } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -14,7 +14,7 @@ export default function Home() {
     const toggleSidebar = () => {
         setIsSidebarVisible(!isSidebarVisible);
     };
-    
+    const voltarPng = require("../../assets/menuIcon.png");
 
     const [searchQuery, setSearchQuery] = useState('');
     const [data, setData] = useState([
@@ -31,26 +31,27 @@ export default function Home() {
 
     return (
       <View style={styles.container}>
-        {/* Botão de Menu */}
-        <TouchableOpacity style={styles.menuButton} onPress={toggleSidebar}>
-              <FaBars size={30} color="#fff" /> {/* Usando o ícone */}
-        </TouchableOpacity>
-          {/* Sidebar */}
-          {isSidebarVisible && (
-              <Animatable.View animation="fadeInLeft" style={styles.sidebar}>
-                  <TouchableOpacity style={styles.sidebarButton}>
-                      <Text style={styles.sidebarButtonText}>Item 1</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.sidebarButton}>
-                      <Text style={styles.sidebarButtonText}>Item 2</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.sidebarButton}>
-                      <Text style={styles.sidebarButtonText}>Item 3</Text>
-                  </TouchableOpacity>
-              </Animatable.View>
-          )}
+        
 
         <Animatable.View animation="fadeInDown" delay={400} style={styles.containerHeader}>
+            {/* Botão de Menu */}
+            <TouchableOpacity style={styles.menuButton} onPress={toggleSidebar}>
+                <Image source={voltarPng} style={styles.menuButton}></Image>
+            </TouchableOpacity>
+            {/* Sidebar */}
+            {isSidebarVisible && (
+                <Animatable.View animation="fadeInLeft" style={styles.sidebar}>
+                    <TouchableOpacity style={styles.sidebarButton}>
+                        <Text style={styles.sidebarButtonText}>Item 1</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.sidebarButton}>
+                        <Text style={styles.sidebarButtonText}>Item 2</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.sidebarButton}>
+                        <Text style={styles.sidebarButtonText}>Item 3</Text>
+                    </TouchableOpacity>
+                </Animatable.View>
+            )}
             <View style={styles.profileHeader}>
                        
                 <View style={styles.profile}>
@@ -61,7 +62,7 @@ export default function Home() {
             <Text style={styles.message}>Home</Text>
         </Animatable.View>
 
-        <View>
+        <Animatable.View animation="fadeInLeft" delay={600} style={styles.boxSearch}>
             <TextInput
             style={styles.searchBar}
             placeholder="Pesquisar..."
@@ -69,7 +70,7 @@ export default function Home() {
             onChangeText={text => setSearchQuery(text)}
             />
 
-        </View>
+        </Animatable.View>
         
         <Animatable.View animation="fadeInUp" delay={600} style={styles.containerForm}>
             <Med />
@@ -81,13 +82,13 @@ export default function Home() {
 }
 
 const Med = () => (
-  <View style={styles.med}>
+  <TouchableOpacity style={styles.med}>
     <View style={styles.medbox}>
       <Text style={styles.name2}>Medicamento</Text>
       <Text style={styles.title}>Dosagem:</Text>
     </View>
     <Text style={styles.time}>17:55</Text>      
-  </View>
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
@@ -110,6 +111,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 25,
   },
   profileHeader:{
+    marginTop:10,
     flexDirection:"row",
   },
   profile:{
@@ -153,6 +155,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     padding:25,
     width:'100%',
+    marginHorizontal: '10%'
   },
   medbox:{ 
     flex:1,
@@ -173,6 +176,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     left: 10,
+    width:30,
+    height:30,
     zIndex: 10,
     padding: 10,
   },
@@ -194,6 +199,18 @@ const styles = StyleSheet.create({
   sidebarButtonText: {
     color: '#fff',
     fontSize: 16,
+  },
+  boxSearch:{
+    position: "absolute",
+    borderColor:"black",
+    borderWidth:1,
+    borderRadius: 50,
+    paddingHorizontal: 10,
+    backgroundColor: "#fff",
+    marginLeft: "29%",
+    paddingVertical:10,
+    marginTop: '8.5%',
+    width:'45%',
   },
 
 })
