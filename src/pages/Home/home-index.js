@@ -30,7 +30,7 @@ export default function Home() {
                 <TouchableOpacity style={styles.closeButton} onPress={toggleSidebar}>
                     <Icon name="cross" size={40} color="#fff" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('Entrar')}>
+                <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('Perfil')}>
                     <View style={styles.image}></View>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.sidebarButton} onPress={() => navigation.goBack()}>
@@ -76,7 +76,7 @@ const Med = () => {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity style={styles.med} onPress={() => navigation.navigate('MedControl')}>
+        <TouchableOpacity style={styles.med} onPress={() => navigation.navigate('MedAdd')}>
             <View style={styles.medbox}>
                 <Text style={styles.name2}>Medicamento</Text>
                 <Text style={styles.title}>Dosagem:</Text>

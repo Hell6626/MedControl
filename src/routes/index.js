@@ -5,12 +5,13 @@ import UsuarioSecundario from '../pages/UsuarioSecundario/UsuarioSec-index'
 import Entrar from "../pages/Entrar/Entrar-index";
 import Perfil from "../pages/Perfil/perfil-index.js";
 import Home from "../pages/Home/home-Index.js";
+import MedAdd from "../pages/MedAdd/MedAdd-Index.js";
 
 const Stack = createNativeStackNavigator();
 
 export default function Routes() {
     return (
-        <Stack.Navigator initialRouteName="Perfil">
+        <Stack.Navigator initialRouteName="MedControl">
             <Stack.Screen
                 name="MedControl"
                 component={MedControl}
@@ -39,6 +40,11 @@ export default function Routes() {
             <Stack.Screen
                 name="Home"
                 component={Home}
+                options={{ headerShown: false, animationEnabled: true }}
+            />
+            <Stack.Screen
+                name="MedAdd"
+                component={MedAdd}
                 options={{ headerShown: false, animationEnabled: true }}
             />
         </Stack.Navigator>

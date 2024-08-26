@@ -40,7 +40,7 @@ export default function Perfil() {
 }
 
 const UserProfile = () => {
-  const navigation = useNavigation();  // Use useNavigation para obter a função de navegação
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity style={styles.user} onPress={() => navigation.navigate('Home')}>
