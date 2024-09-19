@@ -1,42 +1,73 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { Formik, ErrorMessage } from "formik";
+import * as yup from "yup";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from '@react-navigation/native'
 
 export default function Entrar() {
     const navigation = useNavigation();
-    return (
 
+    // Definir o schema de validação usando yup
+    const validationSchema = yup.object().shape({
+        email: yup.string().email("Digite um e-mail válido").required("O e-mail é obrigatório"),
+        password: yup.string().min(6, "A senha deve ter pelo menos 6 caracteres").required("A senha é obrigatória"),
+    });
+
+    const handleLogin = (values) => {
+        console.log(values); // Aqui você pode lidar com a lógica de login
+        navigation.navigate('Perfil');
+    };
+
+    return (
         <View style={styles.container}>
             <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
                 <Text style={styles.message}>Bem-vindo(a)</Text>
             </Animatable.View>
 
             <Animatable.View animation="fadeInUp" style={styles.containerForm}>
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+                    validationSchema={validationSchema}
+                    onSubmit={handleLogin}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values }) => (
+                        <>
+                            <Text style={styles.title}>E-mail:</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="E-mail"
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
+                                value={values.email}
+                            />
+                            <Text style={styles.errorText}>
+                                <ErrorMessage name="email" />
+                            </Text>
 
+                            <Text style={styles.title}>Senha:</Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Sua Senha"
+                                secureTextEntry
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur('password')}
+                                value={values.password}
+                            />
+                            <Text style={styles.errorText}>
+                                <ErrorMessage name="password" />
+                            </Text>
 
-                <Text style={styles.title}>E-mail:</Text>
-                <TextInput
-                    placeholder="Digite um E-mail..."
-                    style={styles.input} />
-
-
-                <Text style={styles.title}>Senha:</Text>
-                <TextInput
-                    placeholder="Sua Senha"
-                    style={styles.input} />
-
-
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Perfil')}>
-                    <Text style={styles.buttonText}>Acessar</Text>
-                </TouchableOpacity>
-
+                            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                                <Text style={styles.buttonText}>Acessar</Text>
+                            </TouchableOpacity>
+                        </>
+                    )}
+                </Formik>
 
                 <TouchableOpacity style={styles.registerbutton} onPress={() => navigation.navigate('Cadastro')}>
                     <Text style={styles.registerText}>Não possui uma conta? Cadastre-se</Text>
                 </TouchableOpacity>
-
-
             </Animatable.View>
         </View>
     );
@@ -51,7 +82,6 @@ const styles = StyleSheet.create({
         marginTop: '14%',
         marginBottom: "8%",
         paddingStart: "5%",
-
     },
     message: {
         fontSize: 28,
@@ -75,7 +105,10 @@ const styles = StyleSheet.create({
         height: 40,
         marginBottom: 12,
         fontSize: 16,
-
+    },
+    errorText: {
+        color: "red",
+        fontSize: 14,
     },
     button: {
         backgroundColor: "#613CF0",
@@ -90,7 +123,6 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20,
         fontWeight: "bold",
-
     },
     registerbutton: {
         marginTop: 12,
@@ -99,4 +131,4 @@ const styles = StyleSheet.create({
     registerText: {
         color: "grey",
     }
-})
+});
