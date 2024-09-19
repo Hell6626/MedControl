@@ -10,8 +10,20 @@ export default function Entrar() {
 
     // Definir o schema de validação usando yup
     const validationSchema = yup.object().shape({
-        email: yup.string().email("Digite um e-mail válido").required("O e-mail é obrigatório"),
-        password: yup.string().min(6, "A senha deve ter pelo menos 6 caracteres").required("A senha é obrigatória"),
+        email: yup.string().email("Digite um e-mail válido").required("O e-mail é obrigatório").test(
+            'is-valid-domain', // Nome do teste
+            'Digite um e-mail válido', // Mensagem de erro personalizada
+            value => {
+                const domain = value?.split('@')[1];
+                const validDomains = ['gmail.com', 'yahoo.com', 'hotmail.com']; // Domínios válidos
+                return validDomains.includes(domain); // Verifica se o domínio é um dos permitidos
+            }
+        ),
+        password: yup.string()
+        .min(8, "A senha deve ter no mínimo 8 caracteres")
+        .matches(/[A-Z]/, "A senha deve conter pelo menos uma letra maiúscula")
+        .matches(/[!@#$%^&*(),.?":{}|<>]/, "A senha deve conter pelo menos um caractere especial")
+        .required("A senha é obrigatória"),
     });
 
     const handleLogin = (values) => {
