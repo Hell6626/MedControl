@@ -11,13 +11,6 @@ import {connect} from mysql2;
 export default function Cadastro() {
     const navigation = useNavigation();
     const mysql = require('mysql2');
-    const connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'seu_usuario',
-        password: 'sua_senha',
-        database: 'nome_do_banco'
-      });
-
 
     // Estado para alternar a visibilidade da senha
     const [showPassword, setShowPassword] = useState(false);
