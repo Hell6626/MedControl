@@ -1,13 +1,23 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from "react-native";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from '@react-navigation/native';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {connect} from mysql2;
+
 
 export default function Cadastro() {
     const navigation = useNavigation();
+    const mysql = require('mysql2');
+    const connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'seu_usuario',
+        password: 'sua_senha',
+        database: 'nome_do_banco'
+      });
+
 
     // Estado para alternar a visibilidade da senha
     const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +41,34 @@ export default function Cadastro() {
             .required("Confirmação de senha é obrigatória")
     });
 
+    // Função para enviar os dados ao backend
+    const handleRegister = async (values) => {
+        try {
+            const response = await fetch('https://localhost/api', { // Substitua pela URL do seu backend
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: values.email,
+                    password: values.password,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+                navigation.navigate('UsuarioSecundario'); // Navegar para a próxima tela
+            } else {
+                Alert.alert("Erro", result.message || "Erro ao cadastrar.");
+            }
+        } catch (error) {
+            console.error('Erro ao fazer a requisição:', error);
+            Alert.alert("Erro", "Erro ao conectar ao servidor.");
+        }
+    };
+
     return (
         <View style={styles.container}>
             <Animatable.View animation="fadeInLeft" delay={500} syle={styles.containerHeader}>
@@ -41,10 +79,7 @@ export default function Cadastro() {
                 <Formik
                     initialValues={{ email: '', password: '', confirmPassword: '' }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => {
-                        // Lógica de submissão do formulário
-                        navigation.navigate('UsuarioSecundario');
-                    }}
+                    onSubmit={(values) => handleRegister(values)} // Chamar a função de registro
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, validateForm }) => (
                         <>
@@ -108,7 +143,11 @@ export default function Cadastro() {
                                 <ErrorMessage name="confirmPassword" />
                             </Text>
 
-                            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                            <TouchableOpacity style={styles.button} onPress={() => {
+                                    handleSubmit();
+                                    navigation.navigate('UsuarioSecundario');
+                                }}
+                            >
                                 <Text style={styles.buttontext}>Próximo</Text>
                             </TouchableOpacity>
 
