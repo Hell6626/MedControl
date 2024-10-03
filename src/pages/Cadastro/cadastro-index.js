@@ -5,12 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {connect} from mysql2;
-
+import Axios from 'axios'; // Certifique-se de instalar axios com `npm install axios`
 
 export default function Cadastro() {
     const navigation = useNavigation();
-    const mysql = require('mysql2');
 
     // Estado para alternar a visibilidade da senha
     const [showPassword, setShowPassword] = useState(false);
@@ -34,37 +32,23 @@ export default function Cadastro() {
             .required("Confirmação de senha é obrigatória")
     });
 
-    // Função para enviar os dados ao backend
-    const handleRegister = async (values) => {
-        try {
-            const response = await fetch('https://localhost/api', { // Substitua pela URL do seu backend
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: values.email,
-                    password: values.password,
-                }),
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
-                navigation.navigate('UsuarioSecundario'); // Navegar para a próxima tela
-            } else {
-                Alert.alert("Erro", result.message || "Erro ao cadastrar.");
-            }
-        } catch (error) {
-            console.error('Erro ao fazer a requisição:', error);
-            Alert.alert("Erro", "Erro ao conectar ao servidor.");
-        }
-    };
+    // Função para enviar os dados ao servidor
+    const handleRegister = (values) => {
+        Axios.post("http://localhost:3001/Cadastro", {
+          email: values.email,
+          password: values.password,
+        }).then(response => {
+          alert(response.data.msg);
+          navigation.navigate('UsuarioSecundario');
+        })
+          .catch(error => {
+            console.error(error.response ? error.response.data : error.message);
+          });
+      };
 
     return (
         <View style={styles.container}>
-            <Animatable.View animation="fadeInLeft" delay={500} syle={styles.containerHeader}>
+            <Animatable.View animation="fadeInLeft" delay={500} style={styles.containerHeader}>
                 <Text style={styles.message}>Cadastre-se</Text>
             </Animatable.View>
 
@@ -72,9 +56,9 @@ export default function Cadastro() {
                 <Formik
                     initialValues={{ email: '', password: '', confirmPassword: '' }}
                     validationSchema={validationSchema}
-                    onSubmit={(values) => handleRegister(values)} // Chamar a função de registro
+                    onSubmit={handleRegister}  // Chama a função de registro
                 >
-                    {({ handleChange, handleBlur, handleSubmit, values, validateForm }) => (
+                    {({ handleChange, handleBlur, handleSubmit, values }) => (
                         <>
                             <Text style={styles.title}>E-mail:</Text>
                             <TextInput
@@ -95,17 +79,14 @@ export default function Cadastro() {
                                     style={styles.input}
                                     secureTextEntry={!showPassword}
                                     onChangeText={handleChange('password')}
-                                    onBlur={(e) => {
-                                        handleBlur('password')(e);
-                                        validateForm();  // Forçar revalidação após blur
-                                    }}
+                                    onBlur={handleBlur('password')}
                                     value={values.password}
                                 />
                                 <TouchableOpacity
                                     onPress={() => setShowPassword(!showPassword)}
                                     style={styles.eyeIcon}
                                 >
-                                    <Icon name={showPassword ? "eye-off" : "eye"} size={24} color="grey" />
+                                    <Icon name={showPassword ? "eye" : "eye-off"} size={24} color="grey" />
                                 </TouchableOpacity>
                             </View>
                             <Text style={styles.errorText}>
@@ -119,34 +100,30 @@ export default function Cadastro() {
                                     style={styles.input}
                                     secureTextEntry={!showConfirmPassword}
                                     onChangeText={handleChange('confirmPassword')}
-                                    onBlur={(e) => {
-                                        handleBlur('confirmPassword')(e);
-                                        validateForm();  // Forçar revalidação após blur
-                                    }}
+                                    onBlur={handleBlur('confirmPassword')}
                                     value={values.confirmPassword}
                                 />
                                 <TouchableOpacity
                                     onPress={() => setShowConfirmPassword(!showConfirmPassword)}
                                     style={styles.eyeIcon}
                                 >
-                                    <Icon name={showConfirmPassword ? "eye-off" : "eye"} size={24} color="grey" />
+                                    <Icon name={showConfirmPassword ? "eye" : "eye-off"} size={24} color="grey" />
                                 </TouchableOpacity>
                             </View>
                             <Text style={styles.errorText}>
                                 <ErrorMessage name="confirmPassword" />
                             </Text>
 
-                            <TouchableOpacity style={styles.button} onPress={() => {
-                                    handleSubmit();
-                                    navigation.navigate('UsuarioSecundario');
-                                }}
-                            >
-                                <Text style={styles.buttontext}>Próximo</Text>
-                            </TouchableOpacity>
+                            <Animatable.View style={styles.buttonContainer}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Entrar')}>
+                                    <Text style={styles.buttontext}>Anterior</Text>
+                                </TouchableOpacity>
 
-                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Entrar')}>
-                                <Text style={styles.buttontext}>Anterior</Text>
-                            </TouchableOpacity>
+                                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                                    <Text style={styles.buttontext}>Próximo</Text>
+                                </TouchableOpacity>    
+                            </Animatable.View>
+
                         </>
                     )}
                 </Formik>
@@ -161,31 +138,33 @@ const styles = StyleSheet.create({
         backgroundColor: "#613CF0",
     },
     containerHeader: {
-        flex: 2,
+        flex: 1,  // Altere de 2 para 1 para aumentar a área do formulário
     },
     message: {
-        marginTop: 100,
-        marginBottom: 100,
+        marginTop: 50, // Ajuste a margem superior
+        marginBottom: 30, // Ajuste a margem inferior
         paddingStart: "5%",
         fontSize: 28,
         fontWeight: "bold",
         color: "#fff",
     },
     containerForm: {
-        flex: 1,
+        flex: 2,  // Altere de 1 para 2 para ocupar mais espaço
         backgroundColor: "white",
         paddingStart: "5%",
+        paddingTop: 20, // Adicione um padding no topo
+        paddingBottom: 20, // Adicione um padding na parte inferior
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
     },
     title: {
         fontSize: 20,
-        marginTop: 28,
+        marginTop: 20, // Ajuste a margem superior
     },
     input: {
         flex: 1,
         borderBottomWidth: 1,
-        height: 40,
+        height: 50, // Aumente a altura do input
         fontSize: 16,
         marginRight: '5%',
     },
@@ -197,9 +176,9 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     button: {
-        marginTop: 50,
+        marginTop: 30, // Ajuste a margem superior
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     buttontext: {
         fontSize: 20,
@@ -213,5 +192,13 @@ const styles = StyleSheet.create({
     errorText: {
         color: 'red',
         fontSize: 12,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between', // Para os botões ficarem em cada canto
+        marginTop: 30, // Margem superior para espaçar dos campos acima
+        paddingHorizontal: 20, // Espaçamento lateral
     }
+
+
 });

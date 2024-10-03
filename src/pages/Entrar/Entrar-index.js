@@ -4,6 +4,7 @@ import { Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import * as Animatable from "react-native-animatable";
 import { useNavigation } from '@react-navigation/native'
+import Axios from 'axios';
 
 export default function Entrar() {
     const navigation = useNavigation();
@@ -27,9 +28,19 @@ export default function Entrar() {
     });
 
     const handleLogin = (values) => {
-        console.log(values); // Aqui você pode lidar com a lógica de login
-        navigation.navigate('Perfil');
-    };
+        Axios.post("http://localhost:3001/Login", {
+          email: values.email,
+          password: values.password,
+        }).then(response => {
+          alert(response.data.msg);
+          if (response.data.msg === "Usuário logado com sucesso") {
+            navigation.navigate('Home'); // Navega para a tela Home
+          }
+        })
+          .catch(error => {
+            console.error(error.response ? error.response.data : error.message);
+          });
+      };
 
     return (
         <View style={styles.container}>
