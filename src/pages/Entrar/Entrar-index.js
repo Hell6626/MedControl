@@ -28,7 +28,7 @@ export default function Entrar() {
     });
 
     const handleLogin = (values) => {
-        Axios.post("http://localhost:3001/Login", {
+        Axios.post("https://calm-everglades-16105-75ac9d722dec.herokuapp.com/", {
           email: values.email,
           password: values.password,
         }).then(response => {
