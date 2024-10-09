@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
+import axios from 'axios';
 
 export default function Perfil() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { userId } = route.params; // Obtém o userId passado na navegação
   const addPng = require("../../assets/Adicionar.png");
+  const [perfis, setPerfis] = useState([]);
+
+  useEffect(() => {
+    fetchPerfis();
+  }, []);
+  const fetchPerfis = async () => {
+    try {
+      const response = await axios.get('http://seu-backend-url/perfis', {
+        headers: { 'usuario-id': userId } // Usa o ID do usuário obtido
+      });
+      setPerfis(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar perfis:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>

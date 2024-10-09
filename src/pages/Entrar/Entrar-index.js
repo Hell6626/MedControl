@@ -34,11 +34,13 @@ export default function Entrar() {
         }).then(response => {
           alert(response.data.msg);
           if (response.data.msg === "Usuário logado com sucesso") {
-            navigation.navigate('Perfil'); // Navega para a tela Home
+            const userId = response.data.userId; // Certifique-se de que o backend está enviando o userId
+            navigation.navigate('Perfil', { userId: userId }); 
           }
         })
           .catch(error => {
             console.error(error.response ? error.response.data : error.message);
+            alert("Erro ao fazer login. Por favor, tente novamente.");
           });
       };
 
