@@ -28,13 +28,13 @@ export default function Entrar() {
     });
 
     const handleLogin = (values) => {
-        Axios.post("https://calm-everglades-16105-75ac9d722dec.herokuapp.com/", {
+        Axios.post("http://192.168.0.185:3001/Login", {
           email: values.email,
           password: values.password,
         }).then(response => {
           alert(response.data.msg);
           if (response.data.msg === "Usuário logado com sucesso") {
-            navigation.navigate('Home'); // Navega para a tela Home
+            navigation.navigate('Perfil'); // Navega para a tela Home
           }
         })
           .catch(error => {

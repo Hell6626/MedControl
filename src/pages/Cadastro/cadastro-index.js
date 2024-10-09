@@ -34,7 +34,7 @@ export default function Cadastro() {
 
     // Função para enviar os dados ao servidor
     const handleRegister = (values) => {
-        Axios.post("https://calm-everglades-16105-75ac9d722dec.herokuapp.com/Cadastro", {
+        Axios.post("http://192.168.0.185:3001/Cadastro", {
           email: values.email,
           password: values.password,
         }).then(response => {
